@@ -1,89 +1,79 @@
 #include "CLIENTS_h.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-void printclients(struct client_type clientlist[], int size);
-int main() {
-  FILE *fptr = fopen("clients.txt","r");
-  if(fptr==NULL) {
-    printf("file could not be found");
-    return -1;
-  }
-  struct client_type clientlist[7];
-  int i = 0,j, size = 7;
-  char buff;
-  //for(i=0; i < 7;i++) {
-   // for(j=0; j < 4; j++) {
-     // if(j==0) {
-       // fscanf(fptr,"%[^\n]%*c",clientlist[i].id);
-      // fgets(clientlist[i].id,100,fptr);
-     // }
-     // if(j==1) {
-     //  fscanf(fptr,"%[^\n]%*c",clientlist[i].name);
-     //   fgets(clientlist[i].name,100,fptr);
-     // }
-     // if(j==2) { 
-        //fscanf(fptr,"%[^\n]%*c",clientlist[i].phonenumber);
-      //   fgets(clientlist[i].phonenumber,14,fptr);      
-     // }
-     // if(j==3) {
-      //   fgets(clientlist[i].email,100,fptr);
-       // fscanf(fptr,"%[^\n]%*c",clientlist[i].email);
-        
-     // }     
-    //}
- // }
- 
- // for(i = 0; i < size; i++) {
+
+void printclients(Client client, int size);
+
+Client createClients(FILE *fptr, int size) {
+  Client clientlist = malloc(sizeof(struct client_type) * size);
+  int i,j;
+  for(i = 0; i < size; i++) {
     j = 0;
     char temp = fgetc(fptr);
+    char tempstr[50];
     while(temp != '\n') { 
-      printf("%c\n",temp);
-      clientlist[i].id[j] = temp;
+      tempstr[j] = temp;
       j++;
       temp = fgetc(fptr);
     }
-    clientlist[i].id[j] = '\0';
-    printf("%s\n", clientlist[i].id);
+    tempstr[j] = '\0';
+    strcpy(clientlist[i].id,tempstr);
     j = 0;
     temp = fgetc(fptr);
     while(temp != '\n') {
-      clientlist[i].name[j] = temp;
+      tempstr[j] = temp;
       j++;
       temp = fgetc(fptr);
     }
-    clientlist[i].name[j] = '\0';
-     printf("||%s||\n", clientlist[i].name);
+     tempstr[j] = '\0';
+    strcpy(clientlist[i].name,tempstr);
     j = 0;
     temp = fgetc(fptr);
     while(temp != '\n') {
-      clientlist[i].phonenumber[j] = temp;
+      tempstr[j] = temp;
       j++;
       temp = fgetc(fptr);
     }
-    clientlist[i].phonenumber[j] = '\0';
+    tempstr[j] = '\0';
     j = 0;
+    strcpy(clientlist[i].phonenumber,tempstr);
     temp = fgetc(fptr);
+    
     while(temp != '\n') {
-     clientlist[i].email[j] = temp;
-     j++;
-     temp = fgetc(fptr);
+      tempstr[j] = temp;
+      j++;
+      temp = fgetc(fptr);
     }
-    clientlist[i].email[j] = '\0';
-  
-  
-//  }
-  printf("\n");
-  printf("%s\n", clientlist[0].id);
-  printf("%s\n", clientlist[0].name);
-  printf("%s\n", clientlist[0].phonenumber);
-  printf("%s\n", clientlist[0].email);
- 
- // printclients(clientlist[], size);
-  fclose(fptr);
+    tempstr[j] = '\0';
+    strcpy(clientlist[i].email,tempstr);
+  }
+
+  return clientlist;
+}
+void destroyClients(Client client) {
+  free(client);
+}
+char* getID(Client client) {
+  char* str = malloc(sizeof(char) * (strlen(client->id) + 1));
+  strcpy(str,client->id);
+  return str;
+}
+char* getName(Client client) {
+  char* str = malloc(sizeof(char) * (strlen(client->name) + 1));
+  strcpy(str,client->name);
+  return str;
+}
+char* getNumber(Client client) {
+  char* str = malloc(sizeof(char) * (strlen(client->number) + 1));
+  strcpy(str,client->number);
+  return str;
+}
+char* getEmail(Client client) {
+  char* str = malloc(sizeof(char) * (strlen(client->email) + 1));
+  strcpy(str,client->email);
+  return str;
 }
 
-void printclients(struct client_type clientlist[], int size) {
+
+void printclients(Client clientlist, int size) {
   int i;
   for(i = 0; i < size; i++) {
     printf("%s\n%s\n%s\n%s\n",clientlist[i].id, clientlist[i].name, clientlist[i].phonenumber, clientlist[i].email);
