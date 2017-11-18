@@ -5,10 +5,10 @@
 #include <string.h>
 
 struct client_type {
-  char id[100];
-  char name[100];
-  char phonenumber[100];
-  char email[100];  
+  char *id;
+  char *name;
+  char *phonenumber;
+  char *email;  
 };
 
 typedef struct client_type *Client;
@@ -18,10 +18,10 @@ char* getID(Client client);
 char* getName(Client client);
 char* getNumber(Client client);
 char* getEmail(Client client);
-void setID(Client client);
-void setName(Client client);
-void setNumber(Client client);
-void setEmail(Client client);
+void setID(Client client, char* newid);
+void setName(Client client, char* newname);
+void setNumber(Client client, char* newnumber);
+void setEmail(Client client, char* newemail);
 
 
 
