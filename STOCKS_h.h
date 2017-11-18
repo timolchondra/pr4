@@ -9,20 +9,18 @@ struct stocks_type {
   char *symbol;
   double price;
 };
-//Stock create (void);
+
 typedef  struct stocks_type *  Stock;
-Stock createPortfolio(FILE *file,int SIZE);
-void destroyPortfolio(Stock stock);
+
+Stock createStock(FILE *file);
+
 char* getSymbol(Stock stock);
+
 double getPrice(Stock stock);
+
+void destroyStock(Stock stock);
 void setSymbol(Stock stock, char* newSymbol);
 void setPrice(Stock stock, double newPrice);
-
-
-
-//*char getSymbol(Stock stock.symbol);
-//double getPrice(Stock stock.price);
-//char* getSymbol(void);
-//double getPrice(void);
+void printStock(Stock stock);
 
 #endif
