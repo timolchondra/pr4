@@ -1,24 +1,17 @@
 #include "STOCKS_h.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void printStocks(struct stocks_type*, int);
-
+void printStocks(Stock stock, int SIZE);
+/*
 int main(void) {
 
   int a, b, SIZE = 3179;
 
-  //Stock *stocksPortfolio =  calloc(SIZE, sizeof(struct stocks_type));
-  
-  struct stocks_type stocksPortfolio[SIZE];
-
-  char temp[21];
-  
   FILE *stocksPTR = fopen("stocks.csv","r");
 
-  //char *temp = (char *) calloc(21,sizeof(char));
-  
   if (stocksPTR == NULL) {
 
     printf("file could not be found");
@@ -27,20 +20,37 @@ int main(void) {
     
   }
 
-  //int a, b, SIZE = 3179;
+  Stock stockPortfolio = createStock(stocksPTR);
+  fclose(stocksPTR);
+  
+  return 0;
+}
+*/
 
-  //char temp[21];
+Stock createStock(FILE *stocksPTR) {
 
+  Stock stocksPortfolio = malloc(sizeof(struct stocks_type));
+
+  int a, b;
+  char *temp = malloc(sizeof(char) * 21);
+  fscanf(stocksPTR,"%[^\n]", temp);
+  stocksPortfolio -> symbol = malloc(sizeof(char) * 6);
+
+  fscanf(stocksPTR,"%[^,],%lf", stocksPortfolio->symbol, &stocksPortfolio->price);
+
+  //char *temp2 = malloc(sizeof(char) * 21);
+  /*
   for (a = 0; a < SIZE; a++) {
 
     if(a == 0) {
-
+      
       fscanf(stocksPTR,"%[^\n]", temp);
-
-      //printf("%s",temp);
+      
+      printf("%s",temp);
 
     } else {
-
+      stocksPortfolio[a - 1].symbol = malloc(sizeof(char) * 6);
+      //stocksPortfolio[a - 1].price = malloc(sizeof(double));
       fscanf(stocksPTR,"%[^,],%lf",
 
 	     stocksPortfolio[a - 1].symbol,
@@ -50,15 +60,15 @@ int main(void) {
     }
     
   }
+*/
+  // printStocks(stocksPortfolio);
+
+  //free(stocksPortfolio);
   
-  printStocks(stocksPortfolio,SIZE);
-  
-  fclose(stocksPTR);
-  
-  return 0;
 }
 
-void printStocks(struct stocks_type stocksPortfolio[], int SIZE) {
+
+void printStocks(Stock stocksPortfolio, int SIZE) {
 
   int a;
   
@@ -75,3 +85,36 @@ void printStocks(struct stocks_type stocksPortfolio[], int SIZE) {
   printf("\n");
 
 }
+
+void destroyPortfolio(Stock stock) {
+
+  free(stock -> symbol);
+
+  //free(stock.price);
+  
+}
+
+char* getSymbol(Stock stock) {
+
+  return stock -> symbol;
+  
+}
+
+double getPrice(Stock stock) {
+
+  return stock -> price;
+  
+}
+
+void setSymbol(Stock stock, char* newSymbol) {
+
+  strcpy(stock -> symbol, newSymbol);
+  
+}
+
+void setPrice(Stock stock, double newPrice) {
+
+  stock -> price = newPrice;
+  
+}
+
