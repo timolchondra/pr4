@@ -4,93 +4,50 @@
 #include <stdlib.h>
 #include <string.h>
 
-void printStocks(Stock stock, int SIZE);
-/*
 int main(void) {
 
-  int a, b, SIZE = 3179;
+  int SIZE = 3179;
 
   FILE *stocksPTR = fopen("stocks.csv","r");
 
   if (stocksPTR == NULL) {
-
-    printf("file could not be found");
+    
+    printf("can't find file");
 
     return -1;
-    
-  }
 
-  Stock stockPortfolio = createStock(stocksPTR);
-  fclose(stocksPTR);
+  }
   
-  return 0;
+  char temp[21];
+  fscanf(stocksPTR,"%[^\n]", temp);
+  
+  Stock stock[2];
+
+  stock[0] = createStock(stocksPTR);
+  stock[1] = createStock(stocksPTR);
+
+  
+  printStock(stock[0]);
+  printStock(stock[1]);
+  
+  
 }
-*/
 
 Stock createStock(FILE *stocksPTR) {
 
-  Stock stocksPortfolio = malloc(sizeof(struct stocks_type));
+  Stock stock = malloc(sizeof(struct stocks_type));
+  
+  stock -> symbol = malloc(sizeof(char) * 6);
 
-  int a, b;
-  char *temp = malloc(sizeof(char) * 21);
-  fscanf(stocksPTR,"%[^\n]", temp);
-  stocksPortfolio -> symbol = malloc(sizeof(char) * 6);
+  fscanf(stocksPTR,"%[^,],%lf", stock->symbol, &stock->price);
 
-  fscanf(stocksPTR,"%[^,],%lf", stocksPortfolio->symbol, &stocksPortfolio->price);
-
-  //char *temp2 = malloc(sizeof(char) * 21);
-  /*
-  for (a = 0; a < SIZE; a++) {
-
-    if(a == 0) {
-      
-      fscanf(stocksPTR,"%[^\n]", temp);
-      
-      printf("%s",temp);
-
-    } else {
-      stocksPortfolio[a - 1].symbol = malloc(sizeof(char) * 6);
-      //stocksPortfolio[a - 1].price = malloc(sizeof(double));
-      fscanf(stocksPTR,"%[^,],%lf",
-
-	     stocksPortfolio[a - 1].symbol,
-
-	     &stocksPortfolio[a - 1].price);
-      
-    }
-    
-  }
-*/
-  // printStocks(stocksPortfolio);
-
-  //free(stocksPortfolio);
+  return stock;
   
 }
-
-
-void printStocks(Stock stocksPortfolio, int SIZE) {
-
-  int a;
-  
-  for (a = 1; a < 10; a++) {
-
-    printf("%s | %lf\n",
-
-	   stocksPortfolio[a - 1].symbol,
-
-	   stocksPortfolio[a - 1].price);
-    
-  }
-
-  printf("\n");
-
-}
-
-void destroyPortfolio(Stock stock) {
+void destroyStock(Stock stock) {
 
   free(stock -> symbol);
 
-  //free(stock.price);
   
 }
 
@@ -118,3 +75,14 @@ void setPrice(Stock stock, double newPrice) {
   
 }
 
+void printStock(Stock stock) {
+
+  printf("%s\n%lf\n", stock->symbol,  stock->price);
+
+}
+
+int compareSymbol(Stock stock1, Stock stock2) {
+
+  return strcmp(stock1->symbol,stock2->symbol);
+
+}
