@@ -4,42 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(void) {
-
-  int SIZE = 3179;
-
-  FILE *stocksPTR = fopen("stocks.csv","r");
-
-  if (stocksPTR == NULL) {
-    
-    printf("can't find file");
-
-    return -1;
-
-  }
-  
-  char temp[21];
-  fscanf(stocksPTR,"%[^\n]", temp);
-  
-  Stock stock[2];
-
-  stock[0] = createStock(stocksPTR);
-  stock[1] = createStock(stocksPTR);
-
-  
-  printStock(stock[0]);
-  printStock(stock[1]);
-  
-  
-}
-
 Stock createStock(FILE *stocksPTR) {
 
   Stock stock = malloc(sizeof(struct stocks_type));
   
   stock -> symbol = malloc(sizeof(char) * 6);
 
-  fscanf(stocksPTR,"%[^,],%lf", stock->symbol, &stock->price);
+  fscanf(stocksPTR,"%[^ ,] ,%lf", stock->symbol, &stock->price);
 
   return stock;
   
@@ -47,8 +18,7 @@ Stock createStock(FILE *stocksPTR) {
 void destroyStock(Stock stock) {
 
   free(stock -> symbol);
-
-  
+  //free(stock);
 }
 
 char* getSymbol(Stock stock) {
@@ -77,7 +47,7 @@ void setPrice(Stock stock, double newPrice) {
 
 void printStock(Stock stock) {
 
-  printf("%s\n%lf\n", stock->symbol,  stock->price);
+  printf("%s %.2lf\n", stock->symbol,  stock->price);
 
 }
 
@@ -85,4 +55,10 @@ int compareSymbol(Stock stock1, Stock stock2) {
 
   return strcmp(stock1->symbol,stock2->symbol);
 
+}
+
+void fprintStockPrice(FILE *fptr, Stock stock) {
+
+  fprintf(fptr, "%.2lf,,", stock->price); 
+  
 }

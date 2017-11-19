@@ -1,24 +1,5 @@
 #include "CLIENTS_h.h"
 
-void printclient(Client client);
-
-int main() {
-  int size = 7;
-  FILE *fptr = fopen("clients.txt","r");
-  if (fptr == NULL) {
-    printf("can't find file");
-    return -1;
-  }
-  Client clientlist[2];
-  clientlist[0] = createClient(fptr);
-  clientlist[1] = createClient(fptr);
-  
-  printclient(clientlist[0]);
-  printclient(clientlist[1]);
-  
-  
-}
-
 Client createClient(FILE *fptr) {
     Client client = malloc(sizeof(struct client_type));
     char tempstr[50];
@@ -49,9 +30,12 @@ void destroyClient(Client client) {
   free(client->name);
   free(client->phonenumber);
   free(client->email);
-  free(client);
+//  free(client);
 }
 
+void fprintClient(FILE *fptr, Client client) {
+  fprintf(fptr,"%s,%s,,%s,%s", client->id, client->name, client->phonenumber, client->email);  
+}
 char* getID(Client client) {
   return client->id;
 }

@@ -22,5 +22,7 @@ void destroyStock(Stock stock);
 void setSymbol(Stock stock, char* newSymbol);
 void setPrice(Stock stock, double newPrice);
 void printStock(Stock stock);
+int compareSymbol(Stock stock1, Stock stock2);
+void fprintStockPrice(FILE *fptr, Stock stock);
 
 #endif

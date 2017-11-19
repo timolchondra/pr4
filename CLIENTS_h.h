@@ -12,8 +12,8 @@ struct client_type {
 };
 
 typedef struct client_type *Client;
-Client createClients (FILE *file, int size);
-void destroyClients(Client client);
+Client createClient(FILE *fptr);
+void destroyClient(Client client);
 char* getID(Client client);
 char* getName(Client client);
 char* getNumber(Client client);
@@ -21,8 +21,10 @@ char* getEmail(Client client);
 void setID(Client client, char* newid);
 void setName(Client client, char* newname);
 void setNumber(Client client, char* newnumber);
+void printclient(Client client);
 void setEmail(Client client, char* newemail);
-
+int compareID(Client client1, Client client2);
+void fprintClient(FILE *fptr, Client client);
 
 
 #endif
