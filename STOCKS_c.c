@@ -62,6 +62,6 @@ int compareSymbol(Stock stock1, Stock stock2) {
 
 void fprintStockPrice(FILE *fptr, Stock stock) {
 
-  fprintf(fptr, "%.2lf,,", stock->price); 
+  fprintf(fptr, "%.2lf,\n,", stock->price); 
   
 }

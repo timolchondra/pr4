@@ -34,7 +34,7 @@ void destroyClient(Client client) {
 }
 
 void fprintClient(FILE *fptr, Client client) {
-  fprintf(fptr,"%s,%s,,%s,%s", client->id, client->name, client->phonenumber, client->email);  
+  fprintf(fptr,"%s,%s,,%s,%s\n,", client->id, client->name, client->phonenumber, client->email);  
 }
 char* getID(Client client) {
   return client->id;

@@ -28,7 +28,7 @@ int main() {
  // printf("%d", sizeof(struct client_type));
   char buffer[100];
   int countline = 0;
-  int i = 0;
+  int i,j;
   
   while(fgets(buffer, 100, clientfptr) != NULL) {
     countline++;
@@ -70,54 +70,29 @@ int main() {
   char stockmatch[100];
   int numshares;
   
-  //while(true){}
-  fscanf(stockclientfptr,"%s %d", idmatch, &stockcount); 
- /* if(idmatch==NULL) {
-  break;
-  } */
-  printf("%s\n", idmatch);
-  printf("%d\n", stockcount);
-  int position = 0;
-  //search for client with same id
-  //printl(listClients, printclient);
- // printf("%d\n", strcmp(idmatch, "1101"));
- // printf("%s\n", getCharl(listClients, getID, 6));
- // int test = strcmp("1101", getCharl(listClients, getID, 6));
- // printf("%d\n", test);
- 
+  for(i = 0; i < size_is(listClients); i++) {
+    double total = 0;
+    int position = 0;
+    fscanf(stockclientfptr,"%s %d", idmatch, &stockcount); 
+    printf("%s\n", idmatch);
+    printf("%d\n", stockcount);
+  //search for client with same id 
     position = matchElementString(listClients, getID, idmatch);
- // printfElement(listClients, printclient, 2);
- // printf("%d\n", position);
   //print info
     fprintElement(listClients, summary, fprintClient, position); 
-  
-    printf("%s\n", getCharl(listStocks, getSymbol, 2139));
-   // printfElement(listStocks, printStock, 2139);
-    printf("%d\n", strcmp("ORG", getCharl(listStocks, getSymbol, 2139)));
-     
-     
-     
-     char teststock[50];
-     strcpy(teststock,getCharl(listStocks, getSymbol, 2139));
-     
-     printf("%d\n", strlen(teststock));
-     for(i = 0; i < strlen(teststock); i++) {
-       printf("%d\n", teststock[i]);
-     }
-     
-  // for(i = 0; i < stockcount; i++) {
-    int total = 0;
-   // fscanf("%[^ ], %d", stockmatch, numshares);
+    
+    for(j = 0; j < stockcount; j++) {
     //search for stock to get price of stock
-    fscanf(stockclientfptr, "%s %d", stockmatch, &numshares);
-    printf("%s %d\n", stockmatch, numshares); 
-    printf("%d\n", strcmp(getCharl(listStocks, getSymbol, 2139), stockmatch));
- //   position = matchElementString(listStocks, getSymbol, 
-    //multiply numshares with price of stock
-    //add to total
-    //print info
- //  } 
-  
+      fscanf(stockclientfptr, "%s %d", stockmatch, &numshares);
+      fprintf(summary,"%s,%d,", stockmatch, numshares); 
+      position = matchElementString(listStocks, getSymbol, stockmatch);
+      fprintElement(listStocks, summary, fprintStockPrice, position);
+      //multiply numshares with price of stock
+      //add to total
+      total += numshares * getDoublel(listStocks, getPrice, position);   
+    } 
+    fprintf(summary, "%.2lf,,,\n", total);
+  }
   
  
  
