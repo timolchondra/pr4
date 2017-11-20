@@ -5,22 +5,22 @@ Client createClient(FILE *fptr) {
     char tempstr[50];
     client->id = malloc(sizeof(char) * 100);
     fgets(tempstr, 100, fptr);
-    tempstr[strlen(tempstr + 1)] = '\0';
+    tempstr[strlen(tempstr + 2)] = '\0';
     strcpy(client->id, tempstr);
     
     client->name = malloc(sizeof(char) * 100);
     fgets(tempstr, 100, fptr);
-    tempstr[strlen(tempstr + 1)] = '\0';
+    tempstr[strlen(tempstr + 2)] = '\0';
     strcpy(client->name, tempstr);
     
     client->phonenumber = malloc(sizeof(char) * 100);
     fgets(tempstr, 100, fptr);
-    tempstr[strlen(tempstr + 1)] = '\0';
+    tempstr[strlen(tempstr + 2)] = '\0';
     strcpy(client->phonenumber, tempstr);
     
     client->email = malloc(sizeof(char) * 100);
     fgets(tempstr, 100, fptr);
-    tempstr[strlen(tempstr + 1)] = '\0';
+    tempstr[strlen(tempstr + 2)] = '\0';
     strcpy(client->email, tempstr);
     
   return client;

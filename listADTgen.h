@@ -16,8 +16,9 @@ void printl(ListType listP, void (*printItem) (void *item));
 char* getCharl(ListType listptr, char* (*getString) (void *d),int position);
 double getDoublel(ListType listptr, double (*getDouble) (void *d), int position);
 void destroyElement(ListType listptr, void (*destroy) (void *d), int poisition);
+void printfElement(ListType listptr, void (*printfItem)(void *Item),int position);
 void fprintElement(ListType listptr, FILE *fptr, void (*fprintItem)(FILE *fptr, void *Item),int position);
-int matchElementString(ListType listptr, void* (*getElementString)(void *Item), char str[]);
+int matchElementString(ListType listptr, char* (*getElementString)(void *Item), char str[]);
 
 
 #endif

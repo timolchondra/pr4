@@ -50,14 +50,6 @@ void printl(ListType listptr, void (*printItem) (void *d)) {
   printf("\n");
 }
 
-char* getCharl(ListType listptr, char* (*getString) (void *d), int position) {
-  return getString(listptr->data + position * (listptr->elementSize));
-}
-
-double getDoublel(ListType listptr, double (*getDouble) (void *d), int position) {
-  return getDouble(listptr->data + position * (listptr->elementSize));
-}
-
 void destroyElement(ListType listptr, void (*destroy) (void *d), int position) {
   destroy(listptr->data + position * (listptr->elementSize));
 }
@@ -78,22 +70,6 @@ void make_empty(ListType listptr) {
    listptr->size = 0;
    listptr->capacity = 100;
 }
-int matchElementString(ListType listptr, void* (*getElementString)(void *Item), char str[]) {
-  int position;
-  
-  for(position = 0; position < listptr->size; position++) {  
-  
-    if(strcmp(str, getElementString(listptr->data + position * (listptr->elementSize))) == 0) {
-      break;
-    }    
-  }
-  if(position >= listptr->size) {
-    printf("There was no match\n");
-    return -1;
-  }
-  
-  return position;
-}
 
 // adds a component to the array, if enough memory available
 void push(ListType listptr, void *item) {
@@ -110,9 +86,45 @@ void push(ListType listptr, void *item) {
    }
 }
 
+
+int matchElementString(ListType listptr, char* (*getElementString)(void *Item), char str[]) {
+  int position;
+  
+  for(position = 0; position < listptr->size; position++) {  
+  
+    if(strcmp(str, getElementString(listptr->data + position * (listptr->elementSize))) == 0) {
+      break;
+    }    
+  }
+  
+  if(position >= listptr->size) {
+    printf("There was no match\n");
+    return -1;
+  }
+  
+  return position;
+}
+
+
+
+char* getCharl(ListType listptr, char* (*getString) (void *d), int position) {
+  return getString(listptr->data + position * (listptr->elementSize));
+}
+
+double getDoublel(ListType listptr, double (*getDouble) (void *d), int position) {
+  return getDouble(listptr->data + position * (listptr->elementSize));
+}
+
+
+
 void fprintElement(ListType listptr, FILE *fptr, void (*fprintItem)(FILE *fptr, void *Item),int position) {
   fprintItem(fptr, (listptr->data + position * (listptr->elementSize)));
 }
+void printfElement(ListType listptr, void (*printfItem)(void *Item),int position) {
+  printfItem(listptr->data + position * (listptr->elementSize));
+}
+
+
 
 int is_full(ListType listptr) {
   if (listptr->size >= listptr->capacity) {

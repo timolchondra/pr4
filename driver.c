@@ -47,7 +47,8 @@ int main() {
 //  printf("%d\n", countline);
   fclose(stockfptr);
   stockfptr = fopen("stocks.csv","r");
-  fscanf(stockfptr,"%[^\n]", buffer);
+  //fscanf(stockfptr,"%[^\n]", buffer);
+  fgets(buffer, 100, stockfptr);
   for(i = 0; i < countline-1; i++) {
     push(listStocks, createStock(stockfptr));
   }
@@ -61,7 +62,7 @@ int main() {
   //printf("%s\n", getCharl(listClients, getName, position));
   //printf("%.2lf\n", getDoublel(listStocks, getPrice, position));
   //printl(listClients, printclient);
-  //printl(listStocks, printStock);
+    printl(listStocks, printStock);
   
   
   char idmatch[100];
@@ -78,20 +79,44 @@ int main() {
   printf("%d\n", stockcount);
   int position = 0;
   //search for client with same id
-  printl(listClients, printclient);
-  position = matchElementString(listClients, getID, idmatch);
-  printf("%d\n", position);
-  position = 6;
-  fprintElement(listClients, summary, fprintClient, position); 
+  //printl(listClients, printclient);
+ // printf("%d\n", strcmp(idmatch, "1101"));
+ // printf("%s\n", getCharl(listClients, getID, 6));
+ // int test = strcmp("1101", getCharl(listClients, getID, 6));
+ // printf("%d\n", test);
+ 
+    position = matchElementString(listClients, getID, idmatch);
+ // printfElement(listClients, printclient, 2);
+ // printf("%d\n", position);
   //print info
-  /*for(i = 0; i < stockcount; i++) {
-    int total;
-    fscanf("%[^ ], %d", stockmatch, numshares);
+    fprintElement(listClients, summary, fprintClient, position); 
+  
+    printf("%s\n", getCharl(listStocks, getSymbol, 2139));
+   // printfElement(listStocks, printStock, 2139);
+    printf("%d\n", strcmp("ORG", getCharl(listStocks, getSymbol, 2139)));
+     
+     
+     
+     char teststock[50];
+     strcpy(teststock,getCharl(listStocks, getSymbol, 2139));
+     
+     printf("%d\n", strlen(teststock));
+     for(i = 0; i < strlen(teststock); i++) {
+       printf("%d\n", teststock[i]);
+     }
+     
+  // for(i = 0; i < stockcount; i++) {
+    int total = 0;
+   // fscanf("%[^ ], %d", stockmatch, numshares);
     //search for stock to get price of stock
+    fscanf(stockclientfptr, "%s %d", stockmatch, &numshares);
+    printf("%s %d\n", stockmatch, numshares); 
+    printf("%d\n", strcmp(getCharl(listStocks, getSymbol, 2139), stockmatch));
+ //   position = matchElementString(listStocks, getSymbol, 
     //multiply numshares with price of stock
     //add to total
     //print info
-  } */
+ //  } 
   
   
  
@@ -111,9 +136,9 @@ int main() {
  // printf("%d\n", size_is(listStocks));
  
   //make_empty(listClients);
-  printf("%d\n", size_is(listClients));
+//  printf("%d\n", size_is(listClients));
 //  make_empty(listStocks);
-   printf("%d\n", size_is(listStocks));
+  // printf("%d\n", size_is(listStocks));
   destroy(listClients);
   destroy(listStocks);
  

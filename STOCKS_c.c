@@ -9,8 +9,11 @@ Stock createStock(FILE *stocksPTR) {
   Stock stock = malloc(sizeof(struct stocks_type));
   
   stock -> symbol = malloc(sizeof(char) * 6);
+  
 
-  fscanf(stocksPTR,"%[^ ,] ,%lf", stock->symbol, &stock->price);
+  fscanf(stocksPTR,"\n%[^ ,] ,%lf", stock->symbol, &stock->price);
+  
+  stock->symbol[strlen(stock->symbol)] = '\0';
 
   return stock;
   
@@ -23,7 +26,7 @@ void destroyStock(Stock stock) {
 
 char* getSymbol(Stock stock) {
 
-  return stock -> symbol;
+  return stock->symbol;
   
 }
 
